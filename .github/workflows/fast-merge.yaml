@@ -10,9 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Get branch names
+      - name: Get PR ref
         id: branch-name
-        uses: tj-actions/branch-names@v5.1
+        run: |
+          URI=https://api.github.com
+          API_HEADER="Accept: application/vnd.github.v3+json"
+          AUTH_HEADER="Authorization: token $GITHUB_TOKEN"
+          PR_NUMBER=${{github.event.issue.number}}
+          REPO_FULLNAME=${{github.event.repository.full_name}}
+          pr_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
+            "${URI}/repos/$REPO_FULLNAME/pulls/$PR_NUMBER")
+          HEAD_REF=$(echo "$pr_resp" | jq -r .head.ref)
+          echo $HEAD_REF
+          echo '::set-output name=PR_HEAD_REF::$HEAD_REF'
       - name: Print Outputs
         run: echo ${{join(steps.branch-name.outputs.*, '\n')}}
       - uses: actions/checkout@v1
@@ -26,7 +36,7 @@ jobs:
           git config pull.rebase false
       - name: Merge Branch
         run: |
-          git pull origin ${{steps.branch-name.outputs.current_branch}}
+          git pull origin ${{steps.branch-name.outputs.PR_HEAD_REF}}
 
       - name: Push Branch
         run: |
