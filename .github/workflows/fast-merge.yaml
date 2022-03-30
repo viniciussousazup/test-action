@@ -13,7 +13,7 @@ jobs:
         id: branch-name
         uses: tj-actions/branch-names@v5.1
       - name: Print Outputs
-        run: echo ${{join(steps.run_tests.outputs.*, '\n')}}
+        run: echo ${{join(steps.branch-name.outputs.*, '\n')}}
       - uses: actions/checkout@v1
         with:
           ref: sandbox
