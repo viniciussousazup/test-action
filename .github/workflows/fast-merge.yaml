@@ -14,7 +14,7 @@ jobs:
         run: |
           URI=https://api.github.com
           API_HEADER="Accept: application/vnd.github.v3+json"
-          AUTH_HEADER="Authorization: token $GITHUB_TOKEN"
+          AUTH_HEADER="Authorization: token ${{ secrets.GITHUB_TOKEN }}"
           PR_NUMBER=${{github.event.issue.number}}
           REPO_FULLNAME=${{github.event.repository.full_name}}
           pr_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
