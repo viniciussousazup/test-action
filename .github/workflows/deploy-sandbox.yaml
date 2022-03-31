@@ -6,14 +6,15 @@ on:
     branches: [sandbox]
 
 jobs:
-  name: Deploy to sandbox
-  runs-on: orange-staging-qa
-  steps:
-    - name: Checkout
-      uses: actions/checkout@master
+  deploy:
+    name: Deploy to sandbox
+    runs-on: orange-staging-qa
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
 
-    - name: Build
-      run: echo "Simulating build"
+      - name: Build
+        run: echo "Simulating build"
 
-    - name: Deploy
-      run: echo "Simulating deploy"
+      - name: Deploy
+        run: echo "Simulating deploy"
