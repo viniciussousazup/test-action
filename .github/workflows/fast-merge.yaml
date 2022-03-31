@@ -1,5 +1,5 @@
 name: "Fast Merge sandbox"
-concurrency: sandbox_deploy
+concurrency: merge_sandbox
 on:
   issue_comment:
     types: [created]
