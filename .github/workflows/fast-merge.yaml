@@ -45,4 +45,5 @@ jobs:
           pr_number: ${{github.event.issue.number}}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   call-workflow-deploy:
+    needs: [merge]
     uses: ./.github/workflows/deploy-sandbox.yaml
