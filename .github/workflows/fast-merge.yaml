@@ -39,7 +39,7 @@ jobs:
           git push origin sandbox
 
       - name: Deploy
-        uses: ./.github/workflows/deploy-sandbox.yaml
+        uses: ./.github/workflows/deploy-sandbox
 
       - name: Comment PR
         uses: thollander/actions-comment-pull-request@v1.1.0
