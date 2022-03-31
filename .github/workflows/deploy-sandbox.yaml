@@ -1,0 +1,20 @@
+name: "Deploy to sandbox"
+concurrency: sandbox_deploy
+on:
+  workflow_call: 
+    inputs: []
+  push:
+    branches: [sandbox]
+
+jobs:
+  name: Deploy to qa
+   runs-on: orange-staging-qa
+   steps:
+     - name: Checkout
+       uses: actions/checkout@master
+
+     - name: Build
+       run: echo "Simulating build"
+
+    - name: Deploy
+      run: echo "Simulating deploy"

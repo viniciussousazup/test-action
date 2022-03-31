@@ -20,11 +20,7 @@ jobs:
           pr_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
             "${URI}/repos/$REPO_FULLNAME/pulls/$PR_NUMBER")
           HEAD_REF=$(echo "$pr_resp" | jq -r .head.ref)
-          echo "$pr_resp"
-          echo "$HEAD_REF"
           echo "::set-output name=PR_HEAD_REF::$HEAD_REF"
-      - name: Print Outputs
-        run: echo ${{join(steps.branch-name.outputs.*, '\n')}}
       - uses: actions/checkout@v1
         with:
           ref: sandbox
@@ -42,8 +38,11 @@ jobs:
         run: |
           git push origin sandbox
 
+      - name: Deploy
+        uses: .github/workflows/deploy-sandbox.yaml
+
       - name: Comment PR
-        uses: thollander/actions-comment-pull-request@v1
+        uses: thollander/actions-comment-pull-request@v1.1.0
         with:
           message: 'Deploy to sandbox with success !'
           pr_number: ${{github.event.issue.number}}
