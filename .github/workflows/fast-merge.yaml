@@ -43,7 +43,4 @@ jobs:
         with:
           message: 'Deploy to sandbox with success !'
           pr_number: ${{github.event.issue.number}}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  call-workflow-deploy:
-    needs: [merge]
-    uses: ./.github/workflows/deploy-sandbox.yaml
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB_PROD }}
