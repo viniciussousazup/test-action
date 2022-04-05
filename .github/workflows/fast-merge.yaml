@@ -26,7 +26,7 @@ jobs:
           ref: sandbox
       - name: Config git CLI
         run: |
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{github.event.repository.full_name}}.git
+          git remote set-url origin https://x-access-token:${{ secrets.TOKEN_GITHUB_PROD }}@github.com/${{github.event.repository.full_name}}.git
           git config --global user.email "fast-merge@github.com"
           git config --global user.name "GitHub Fast Merge Action"
           git config pull.rebase false
